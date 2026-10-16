@@ -1,1 +1,369 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Котёнок для Жанночки 💕</title>
+<style>
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
 
+  html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: 'Comic Sans MS', 'Segoe UI', 'Arial', sans-serif;
+    background: linear-gradient(135deg, #ffe0f0 0%, #ffd6e8 25%, #e0f0ff 75%, #d6e8ff 100%);
+    background-size: 400% 400%;
+    animation: gradientMove 15s ease infinite;
+    overflow-x: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  #hearts {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .heart {
+    position: absolute;
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
+    opacity: 0.7;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+    20% { opacity: 0.8; }
+    100% { transform: translateY(-100px) scale(1.2); opacity: 0; }
+  }
+
+  .container {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 40px;
+    padding: 30px 25px;
+    max-width: 420px;
+    width: 92%;
+    box-shadow: 0 20px 60px rgba(255, 150, 200, 0.4);
+    text-align: center;
+    transition: transform 0.4s ease;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+  }
+
+  #kitten {
+    width: 230px;
+    height: 230px;
+    object-fit: contain;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    filter: drop-shadow(0 10px 20px rgba(255, 150, 200, 0.3));
+    animation: breathe 3s ease-in-out infinite;
+  }
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+  }
+
+  #kitten.wake {
+    animation: wakeUp 0.8s ease;
+  }
+
+  @keyframes wakeUp {
+    0% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.15) rotate(-5deg); }
+    50% { transform: scale(1.1) rotate(5deg); }
+    75% { transform: scale(1.12) rotate(-3deg); }
+    100% { transform: scale(1) rotate(0deg); }
+  }
+
+  #text {
+    font-size: 20px;
+    line-height: 1.5;
+    color: #c2185b;
+    margin: 20px 0;
+    min-height: 70px;
+    font-weight: bold;
+    transition: opacity 0.4s ease;
+    text-shadow: 0 2px 4px rgba(255, 182, 217, 0.5);
+  }
+
+  #text.fade {
+    animation: textFade 0.6s ease;
+  }
+
+  @keyframes textFade {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    margin-top: 15px;
+  }
+
+  button {
+    padding: 15px 30px;
+    font-size: 17px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #ffb6d9, #ff9cc8);
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    box-shadow: 0 6px 15px rgba(255, 150, 200, 0.5);
+    width: 100%;
+    max-width: 320px;
+    letter-spacing: 0.3px;
+  }
+
+  button:hover {
+    background: linear-gradient(135deg, #ff9cc8, #ff7ab8);
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 10px 25px rgba(255, 120, 180, 0.6);
+  }
+
+  button:active {
+    transform: scale(0.97);
+  }
+
+  #runaway {
+    position: relative;
+    transition: transform 0.2s ease;
+  }
+
+  .kiss {
+    display: inline-block;
+    font-size: 42px;
+    animation: kissPop 0.6s ease-in-out infinite alternate;
+    margin: 10px 5px;
+  }
+
+  @keyframes kissPop {
+    from { transform: scale(1) rotate(-5deg); }
+    to { transform: scale(1.25) rotate(5deg); }
+  }
+
+  .hand {
+    position: fixed;
+    font-size: 70px;
+    z-index: 10;
+    pointer-events: none;
+    animation: handPop 1s ease forwards;
+  }
+
+  @keyframes handPop {
+    0% { transform: scale(0) rotate(-30deg); opacity: 0; }
+    40% { transform: scale(1.3) rotate(10deg); opacity: 1; }
+    70% { transform: scale(1) rotate(-5deg); opacity: 1; }
+    100% { transform: scale(0.8) rotate(20deg); opacity: 0; }
+  }
+
+  .shake {
+    animation: shakeScreen 0.5s ease;
+  }
+
+  @keyframes shakeScreen {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+  }
+
+  .finale {
+    animation: finalePulse 1s ease infinite alternate;
+  }
+
+  @keyframes finalePulse {
+    from { box-shadow: 0 20px 60px rgba(255, 150, 200, 0.4); }
+    to { box-shadow: 0 20px 80px rgba(255, 100, 180, 0.8); }
+  }
+
+  .emoji-burst {
+    position: fixed;
+    font-size: 30px;
+    pointer-events: none;
+    z-index: 20;
+    animation: burst 1.5s ease forwards;
+  }
+
+  @keyframes burst {
+    0% { transform: translate(0,0) scale(0.5); opacity: 1; }
+    100% { transform: translate(var(--x), var(--y)) scale(1.5); opacity: 0; }
+  }
+
+  @media (max-width: 400px) {
+    #kitten { width: 180px; height: 180px; }
+    #text { font-size: 17px; }
+    button { font-size: 15px; padding: 13px 22px; }
+    .container { padding: 22px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="hearts"></div>
+
+<div class="container" id="container">
+  <img id="kitten" src="https://i.postimg.cc/d01x9yt6/sleep-png.jpg" alt="Котёнок спит">
+  <div id="text">Котёнок спит сладким сном...<br>Что сделаешь? 😴</div>
+  <div class="buttons" id="buttons">
+    <button onclick="wakeGently()">Разбудить нежно 🤲</button>
+    <button id="runaway" onmouseover="runAway()" onclick="runAway()">Разбудить грубо 👋</button>
+  </div>
+</div>
+
+<script>
+  const kitten = document.getElementById('kitten');
+  const textEl = document.getElementById('text');
+  const buttonsEl = document.getElementById('buttons');
+  const container = document.getElementById('container');
+  const heartsEl = document.getElementById('hearts');
+
+  // ─── Сердечки на фоне ───
+  const heartEmojis = ['💕','💖','💗','🩷','💞','🌸','✨'];
+  function spawnHeart() {
+    const h = document.createElement('div');
+    h.className = 'heart';
+    h.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+    h.style.left = Math.random() * 100 + '%';
+    h.style.animationDuration = (4 + Math.random() * 4) + 's';
+    h.style.fontSize = (14 + Math.random() * 20) + 'px';
+    heartsEl.appendChild(h);
+    setTimeout(() => h.remove(), 8000);
+  }
+  setInterval(spawnHeart, 700);
+
+  // ─── Смена текста с анимацией ───
+  function setText(html) {
+    textEl.classList.remove('fade');
+    void textEl.offsetWidth;
+    textEl.innerHTML = html;
+    textEl.classList.add('fade');
+  }
+
+  // ─── Кнопка "Разбудить грубо" убегает ───
+  function runAway() {
+    const btn = document.getElementById('runaway');
+    if (!btn) return;
+    const maxX = window.innerWidth < 400 ? 90 : 140;
+    const x = (Math.random() * 2 - 1) * maxX;
+    const y = (Math.random() * 2 - 1) * 70;
+    btn.style.transform = `translate(${x}px, ${y}px) rotate(${(Math.random()*2-1)*15}deg)`;
+  }
+
+  // ─── Эффект ладошки ───
+  function showHand(emoji, x, y) {
+    const hand = document.createElement('div');
+    hand.className = 'hand';
+    hand.textContent = emoji;
+    hand.style.left = x + 'px';
+    hand.style.top = y + 'px';
+    document.body.appendChild(hand);
+    setTimeout(() => hand.remove(), 1000);
+  }
+
+  // ─── Взрыв эмодзи ───
+  function burst(emoji, count = 12) {
+    for (let i = 0; i < count; i++) {
+      const e = document.createElement('div');
+      e.className = 'emoji-burst';
+      e.textContent = emoji;
+      const rect = container.getBoundingClientRect();
+      e.style.left = (rect.left + rect.width / 2) + 'px';
+      e.style.top = (rect.top + rect.height / 2) + 'px';
+      e.style.setProperty('--x', (Math.random() * 400 - 200) + 'px');
+      e.style.setProperty('--y', (Math.random() * -400 - 100) + 'px');
+      e.style.animationDelay = (Math.random() * 0.3) + 's';
+      document.body.appendChild(e);
+      setTimeout(() => e.remove(), 1800);
+    }
+  }
+
+  // ─── Нежное пробуждение ───
+  function wakeGently() {
+    kitten.classList.add('wake');
+    setTimeout(() => {
+      kitten.src = 'https://i.postimg.cc/x1qvxyMV/awake-png.jpg';
+      kitten.classList.remove('wake');
+    }, 500);
+
+    setTimeout(() => {
+      setText('Ммм... привет, Жанночка! 💕<br>Ты будешь моей подружкой?');
+      buttonsEl.innerHTML = `
+        <button onclick="answer1()">Ламара пошла нахер 😾</button>
+        <button onclick="answer2()">Конечно буду! 🥰</button>
+        <button onclick="answer3()">Мы все скоро помрём 💀</button>
+      `;
+    }, 1000);
+  }
+
+  // ─── Ответ 1 ───
+  function answer1() {
+    setText('Ладно... как хочешь... 😿<br>Я всё равно тебя люблю...');
+    buttonsEl.innerHTML = `<button onclick="restart()">Начать заново 🔄</button>`;
+    burst('💔', 8);
+  }
+
+  // ─── Ответ 2 ───
+  function answer2() {
+    setText('Урааа! Я так счастлив! 😸💖<br>Ты самая лучшая, Жанночка!');
+    buttonsEl.innerHTML = `<button onclick="restart()">Начать заново 🔄</button>`;
+    burst('💖', 15);
+    container.classList.add('finale');
+  }
+
+  // ─── Ответ 3 ───
+  function answer3() {
+    setText('Хм... ну ладно... 😏<br>Тогда нажми на кнопку ниже 👇');
+    buttonsEl.innerHTML = `
+      <button onclick="final()">Да ламарочка ты моя самая любимая и милая девочка 💕</button>
+    `;
+  }
+
+  // ─── Финал ───
+  function final() {
+    setText('Хихихи 😹💕<br><span class="kiss">😘</span><span class="kiss">💋</span><span class="kiss">😘</span><br>Чмок-чмок, Жанночка!');
+    buttonsEl.innerHTML = `<button onclick="restart()">Начать заново 🔄</button>`;
+    burst('💋', 20);
+    burst('💕', 15);
+    container.classList.add('finale');
+
+    // Звуковые вибрации (если поддерживается)
+    if (navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 200]);
+  }
+
+  // ─── Заново ───
+  function restart() {
+    location.reload();
+  }
+
+  // ─── Защита от случайного перетаскивания картинки ───
+  kitten.addEventListener('dragstart', e => e.preventDefault());
+</script>
+
+</body>
+</html>
